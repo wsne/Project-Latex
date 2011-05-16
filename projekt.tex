@@ -1,0 +1,128 @@
+\documentclass[a4paper,11pt,titlepage]{article}
+
+\usepackage[breaklinks=true]{hyperref}
+
+\usepackage{pdflscape}
+
+% encoding
+\usepackage[english, danish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%Collaboration management
+\usepackage[draft,english]{fixme}
+%read-me: http://mirrors.dotsrc.org/ctan/macros/latex/contrib/fixme/fixme.pdf
+
+% layout
+\bibliographystyle{ieeetr}
+
+\usepackage[margin=3cm]{geometry}
+\usepackage{textcomp}
+
+% appearance
+\usepackage{graphicx} 
+\usepackage{color}
+
+% math extensions
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+
+\lstset{%
+  frame=trBL,
+  frameround=fttt,
+  basicstyle=\footnotesize\tt,
+  keywordstyle=\bf
+}
+\newcommand{\for}{\text{ for }}
+\newcommand{\then}{\rightarrow}
+\newcommand{\id}[1]{\ensuremath{\mathop{\mathit{#1}}\nolimits}}
+
+% header and footer
+\usepackage{fancyhdr}
+
+\definecolor{qstgray}{gray}{0.9}
+\makeatletter
+\newenvironment{qst}{
+  \begin{lrbox}{\@tempboxa}
+    \begin{minipage}{\columnwidth}
+      \footnotesize \slshape
+    }
+    {
+    \end{minipage}
+  \end{lrbox}
+  \colorbox{qstgray}{\usebox{\@tempboxa}}
+}
+\makeatother
+
+\fancypagestyle{fncy}{
+  \lhead{\thecourse}
+  \chead{\today}
+  \rhead{Handin 2}
+  \lfoot{}
+  \cfoot{}
+  \rfoot{\thepage}
+  \renewcommand{\headrulewidth}{0.5pt}
+  \renewcommand{\footrulewidth}{0.5pt}
+}
+
+\setcounter{secnumdepth}{1}
+\setcounter{tocdepth}{2}
+
+%\pagestyle{fncy} can't be used with progress 
+
+% title
+\title{\thecourse \\ \thetitle} 
+\date{\today} 
+\author{%
+  \begin{tabular}{ll}
+    Bjarke Jungberg Madsen & 20063422\\
+    Allan Stisen & 20083311\\
+    Jana Kunert & 20085208
+  \end{tabular}
+}
+
+\newcommand{\thecourse}{Eksperimentiel Systemudvikling}
+\newcommand{\thetitle}{Indsæt title \fixme{Find på titel}} 
+\newcommand{\subsubsubsection}[1]{\underline{#1}\newline}
+%Derudover er der en obligatorisk statusrapport i form af uddrag af dagbog.
+%Den endelige aflevering er en projektrapport vedlagt en kørende/interaktiv prototype af den ønskede itanvendelse. Projektrapporten er på max 40 sider, og skal som ovenfor  præciseret indeholde et resume på engelsk (skærmbilleder og andre figurer regnes ikke med og vedlægges separat).
+%Derudover skal rapporten omfatte: 
+%1. En beskrivelse af den valgte organisation og de problemstillinger I har identificeret med henblik på systemudvikling
+%2. En opsummering af processen og de metoder I har anvendt undervejs.
+%3. En opsummering af Jeres erfaringer med brugersamarbejdet
+%4. Et-to scenarier der situerer den vedlagte prototype og muliggør jeres reflektioner
+%5. Diskussion af de valgte løsninger, de problemer der opstår undervejs, og den valgte strategi som helhed.  Især bedes I vælge et element af denne disussion ud, som I går i dybden med, og perspektiverer i forhold til kursusliteraturen.
+\begin{document}
+
+\maketitle
+\newpage
+\selectlanguage{english}
+\begin{abstract}
+Abstract \fixme{Write abstract!!!!}
+\end{abstract}
+\selectlanguage{danish}
+\newpage
+\tableofcontents
+\newpage
+\include{introduktion}
+\include{./Praesentation/projektet_brugere}
+\include{./KontekstueltInterview/interview}
+\include{./Sorteringsoevelse/sortering}
+\include{./WorkModelling/workmodelling}
+\include{./PACT/pact}
+\include{./requierements/requierements}
+\include{./DesignIdeer/iterationer}
+
+\include{./Scenarier/scenarier}
+
+\include{./ProblemstillingerGenerelt/brugersamarbejde_erfaringer}
+
+\include{./ProblemstillingerGenerelt/problemstillinger}
+
+\include{./Dagbog/dagbog_uddrag}
+\newpage
+\bibliography{referencer}
+\appendix
+\end{document}
