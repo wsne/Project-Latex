@@ -5,7 +5,6 @@
 \usepackage{pdflscape}
 
 % encoding
-\usepackage[english, danish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
@@ -84,7 +83,7 @@
 }
 
 \newcommand{\thecourse}{Wireless Sensor Networks}
-\newcommand{\thetitle}{Mini-project 3} 
+\newcommand{\thetitle}{Mini-project 3 - Temperature sensing} 
 \newcommand{\subsubsubsection}[1]{\underline{#1}\newline}
 
 \begin{document}
@@ -98,14 +97,40 @@
 In the following project we've made a sensor network which can measure the temperature periodically. The sensor motes will transmit their results (different strategies will be covered and discussed in the extension part) to the sink which indicates the temperature by either a blue ($\leq 15^{\circ} C $) or a red $>15^{\circ} C$.
 
 To make sure that the sink has received the packages the sink will send an ACK to the sensing mote, if the sink receives the sensing data correctly. After receiving an ACK the sensing mote goes to sleep, if not it receives an ACK it will try to retransmit $N$ times.
+\section{Project implementations}
+
+\subsection{Temperature measuring}
+The conversion given a digital readout ($SO_{T}$ to a temperature value is given at the following form\cite{temperature}:
+\begin{align*}
+	T &= d_{1} + d_{2} \cdot SO_{T}
+\end{align*}
+where the coefficients is defined in Tabel ~\ref{table:temperature}
+\begin{table}[ht]
+\centering
+\begin{tabular}{ | l | c | r | }
+	VDD & $d_{1}^{\circ} \ C$ & $d_{2}^{\circ} \ F$ \\
+	\hline
+	5V & -40.1 & -40.2 \\
+	4V & -39.8 & -39.6 \\
+	3.5V & -39.7 & -39.5 \\
+	3V & -39.6 & -39.3 \\
+	2.5V & -39.4 & -38.9 \\
+\end{tabular}
+\caption{Temperature conversion coefficient}
+\label{table:temperature}
+\end{table}
+
 \section{Extensions of Project}
 \begin{description}
 \item[Multiple motes] If there are multiple sensing motes, they send their sensing data to the sink.
+\item[Plotting] Plot temperature vs. time (offline /online)
 \item[Temperature average] The sink averages the temperature from the sensors.
+\item[Temperature average sensor] The sensor motes averages $n$ temperatures before sending to the sink to improve energy efficiency of the application.
 \item[Temperature average improved] Motes averages temperature sends number of recorded temperatures which indicates what weight the sink should use to make a correct average.
+
 \end{description}
 
 
 \newpage
-
+\bibliography{references}
 \end{document}
