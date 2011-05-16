@@ -66,7 +66,7 @@
   \renewcommand{\footrulewidth}{0.5pt}
 }
 
-\setcounter{secnumdepth}{1}
+\setcounter{secnumdepth}{2}
 \setcounter{tocdepth}{2}
 
 %\pagestyle{fncy} can't be used with progress 
@@ -100,7 +100,7 @@ To make sure that the sink has received the packages the sink will send an ACK t
 \section{Project implementations}
 
 \subsection{Temperature measuring}
-The conversion given a digital readout ($SO_{T}$ to a temperature value is given at the following form\cite{temperature}:
+The conversion given a digital readout ($SO_{T}$ to a temperature value is given at the following formula\cite{temperature}:
 \begin{align*}
 	T &= d_{1} + d_{2} \cdot SO_{T}
 \end{align*}
@@ -108,17 +108,34 @@ where the coefficients is defined in Tabel ~\ref{table:temperature}
 \begin{table}[ht]
 \centering
 \begin{tabular}{ | l | c | r | }
-	VDD & $d_{1}^{\circ} \ C$ & $d_{2}^{\circ} \ F$ \\
 	\hline
+	VDD & $d_{1} \ ^{\circ}  C$ & $d_{1} \ ^{\circ}  F$ \\
+	\hline \hline
 	5V & -40.1 & -40.2 \\
+	\hline
 	4V & -39.8 & -39.6 \\
+	\hline
 	3.5V & -39.7 & -39.5 \\
+	\hline
 	3V & -39.6 & -39.3 \\
+	\hline
 	2.5V & -39.4 & -38.9 \\
+	\hline
+\end{tabular}
+\begin{tabular}{ | l | c | r | }
+	\hline
+	$SO_{T}$ & $d_{2}  \ ^{\circ}C$ & $d_{2} \ ^{\circ} F$ \\
+	\hline \hline
+	14 bit & 0.01 & 0.018 \\
+	\hline
+	12 bit & 0.04 & 0.072\\
+	\hline
 \end{tabular}
 \caption{Temperature conversion coefficient}
 \label{table:temperature}
 \end{table}
+
+\section{Project results}
 
 \section{Extensions of Project}
 \begin{description}
