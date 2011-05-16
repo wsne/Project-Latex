@@ -99,7 +99,12 @@ In the following project we've made a sensor network which can measure the tempe
 
 To make sure that the sink has received the packages the sink will send an ACK to the sensing mote, if the sink receives the sensing data correctly. After receiving an ACK the sensing mote goes to sleep, if not it receives an ACK it will try to retransmit $N$ times.
 \section{Extensions of Project}
-Motes averages temperature sends \# of recorded temperatures which indicates what weight the sink should use to make a correct average.
+\begin{description}
+\item[Multiple motes] If there are multiple sensing motes, they send their sensing data to the sink.
+\item[Temperature average] The sink averages the temperature from the sensors.
+\item[Temperature average improved] Motes averages temperature sends number of recorded temperatures which indicates what weight the sink should use to make a correct average.
+\end{description}
+
 
 \newpage
 
