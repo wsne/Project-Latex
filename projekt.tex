@@ -95,12 +95,11 @@
 \tableofcontents
 \newpage
 \section{Project Description}
-In the following project we've made a sensor network which can measure the temperature periodically. The sensor motes will transmit their results (different strategies will be covered and discussed in the extension part).
+In the following project we've made a sensor network which can measure the temperature periodically. The sensor motes will transmit their results (different strategies will be covered and discussed in the extension part) to the sink which indicates the temperature by either a blue ($\leq 15^{\circ} C $) or a red $>15^{\circ} C$.
 
-
+To make sure that the sink has received the packages the sink will send an ACK to the sensing mote, if the sink receives the sensing data correctly. After receiving an ACK the sensing mote goes to sleep, if not it receives an ACK it will try to retransmit $N$ times.
 \section{Extensions of Project}
-
-Motes averages temperature sends \# of recoreded temperatures
+Motes averages temperature sends \# of recorded temperatures which indicates what weight the sink should use to make a correct average.
 
 \newpage
 
