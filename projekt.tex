@@ -98,7 +98,11 @@ In the following project we've made a sensor network which can measure the tempe
 
 To make sure that the sink has received the packages the sink will send an ACK to the sensing mote, if the sink receives the sensing data correctly. After receiving an ACK the sensing mote goes to sleep, if not it receives an ACK it will try to retransmit $N$ times.
 \section{Project implementations}
-The project implementation is divided in several sections, which each is described.
+The project implementation is divided in several sections, where each section is described. First we've got an overall description of the project which we've implemented.
+
+\subsection{Overall description}
+\fixme{Write and include image!}
+
 \subsection{Temperature measuring}
 The conversion given a digital readout ($SO_{T}$) to a temperature value is given at the following formula\cite{temperature}:
 \begin{align*}
@@ -134,7 +138,6 @@ where the coefficients is defined in Tabel ~\ref{table:temperature}
 \caption{Temperature conversion coefficients}
 \label{table:temperature}
 \end{table}
-\fixme{Insert temperature code}
 
 
 
