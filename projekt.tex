@@ -32,7 +32,9 @@
   frame=trBL,
   frameround=fttt,
   basicstyle=\footnotesize\tt,
-  keywordstyle=\bf
+  keywordstyle=\bf,
+  language = C,
+  tabsize=2
 }
 \newcommand{\for}{\text{ for }}
 \newcommand{\then}{\rightarrow}
@@ -82,6 +84,8 @@
   \end{tabular}
 }
 
+
+
 \newcommand{\thecourse}{Wireless Sensor Networks}
 \newcommand{\thetitle}{Mini-project 3 - Temperature sensing} 
 \newcommand{\subsubsubsection}[1]{\underline{#1}\newline}
@@ -97,6 +101,7 @@
 In the following project we've made a sensor network which can measure the temperature periodically. The sensor motes will transmit their results (different strategies will be covered and discussed in the extension part) to the sink which indicates the temperature by either a blue ($\leq 15^{\circ} C $) or a red $>15^{\circ} C$.
 
 To make sure that the sink has received the packages the sink will send an ACK to the sensing mote, if the sink receives the sensing data correctly. After receiving an ACK the sensing mote goes to sleep, if not it receives an ACK it will try to retransmit $N$ times.
+
 \section{Project implementations}
 The project implementation is divided in several sections, where each section is described. First we've got an overall description of the project which we've implemented.
 
@@ -104,6 +109,7 @@ The project implementation is divided in several sections, where each section is
 \fixme{Write and include image!}
 
 \subsection{Temperature measuring}
+Here we'll explain how and where we convert the digital readout from the temperature sensor to actual degress.
 The conversion given a digital readout ($SO_{T}$) to a temperature value is given at the following formula\cite{temperature}:
 \begin{align*}
 	T &= d_{1} + d_{2} \cdot SO_{T}
@@ -138,8 +144,50 @@ where the coefficients is defined in Tabel ~\ref{table:temperature}
 \caption{Temperature conversion coefficients}
 \label{table:temperature}
 \end{table}
+The conversion from a digital readout is being done in the event readDone. We've made two compile time constants, $CONVERSION_{D1}$, and $CONVERSION_{D2}$.
+\begin{lstlisting}
+CONVERSION_D1 = 3960, /* VDD = 3V */
+CONVERSION_D2 = 1 /* 14 bits */
+...
+event void Read.readDone(error_t result, uint16_t data) {
+	float tempC;
+	if (result != SUCCESS){
+		data = 0xffff;
+		report_problem();
+	}
+	  // conversion
+	  tempC = ( (-CONVERSION_D1) + (CONVERSION_D2 * data) ) ;
+    local.readings[reading++] = tempC;
+}
+\end{lstlisting}
 
 
+\subsection{Network communication}
+
+\begin{lstlisting}
+message_t* receive(message_t *msg, void *payload, uint8_t len) {
+		message_t *ret = msg;
+		int avg = 0, i = 0;
+
+		if (len == sizeof(temperature_t)) {
+			temperature_t* tmpptr = (temperature_t*)payload;
+			printf("\n---------------------------\n");
+			for (i = 0; i < NREADINGS ; i++) {
+				avg = avg + tmpptr->readings[i];
+				printf("%d %d \n", tmpptr->count*10 + i, tmpptr->readings[i]);
+			}
+			avg = avg / NREADINGS;
+			printf("average: %d\n", avg);
+			printfflush();
+			if (avg <= 2800) {
+				call Leds.led1Off();
+				call Leds.led0On();
+			} else {
+				call Leds.led0Off();
+				call Leds.led1On();
+			}
+		}
+\end{lstlisting}
 
 \section{Extensions of Project}
 \begin{description}
