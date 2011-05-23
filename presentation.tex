@@ -1,0 +1,51 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{beamerthemeshadow}
+
+\usetheme{Berlin}
+\title[Temperature Sensing]{Miniproject 3 \\ Temperature Sensing}
+\author{Frederik Mogensen\\
+    Allan Stisen \\
+    Lasse Højgaard }
+\date{\today}
+\begin{document}
+ \AtBeginSection[]
+{
+  \begin{frame}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Project description}
+
+\begin{frame}
+\frametitle{Project description}
+
+\begin{itemize}
+	\item make a  sensor network which can measure the temperature periodically
+	\item Sensor mote transmit results to sink
+	\begin{itemize}
+		\item by either a blue ($\leq 15^{\circ} C $) led
+		\item or a red $>15^{\circ} C$ led 
+	\end{itemize}
+	\item Sink sends ACK to sensor mote if receives package
+	\item Sensor mote goes to sleep if receives ACK or try to retransmit $N$ times.
+\end{itemize}
+\end{frame}
+\section{Project implementation}
+\begin{frame}
+\frametitle{Project implementation}
+
+\end{frame}
+
+\section{Project results}
+
+\begin{frame}
+\frametitle{Project results}
+ 
+\end{frame}
+
+\end{document}
