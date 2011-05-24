@@ -1,0 +1,35 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{beamerthemeshadow}
+\usepackage{listings}
+
+
+\lstset{%
+  frame=trBL,
+  frameround=fttt,
+  basicstyle=\footnotesize\tt,
+  keywordstyle=\bf,
+  language = C,
+  tabsize=2
+}
+
+\usetheme{Berlin}
+\title[Temperature Sensing]{Miniproject 3 \\ Temperature Sensing}
+\author{Frederik Mogensen,\\
+    Allan Stisen,\\
+    Lasse Højgaard }
+\date{\today}
+\begin{document}
+ \AtBeginSection[]
+{
+  \begin{frame}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\input{content/index.tex}
+
+\end{document}

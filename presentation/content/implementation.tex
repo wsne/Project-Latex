@@ -1,67 +1,6 @@
-\documentclass{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage{beamerthemeshadow}
-\usepackage{listings}
-
-
-\lstset{%
-  frame=trBL,
-  frameround=fttt,
-  basicstyle=\footnotesize\tt,
-  keywordstyle=\bf,
-  language = C,
-  tabsize=2
-}
-
-\usetheme{Berlin}
-\title[Temperature Sensing]{Miniproject 3 \\ Temperature Sensing}
-\author{Frederik Mogensen,\\
-    Allan Stisen,\\
-    Lasse Højgaard }
-\date{\today}
-\begin{document}
- \AtBeginSection[]
-{
-  \begin{frame}
-    \tableofcontents[currentsection]
-  \end{frame}
-}
-\begin{frame}
-\titlepage
-\end{frame}
-
-\section{Project Description}
-
-
-\begin{frame}
-\frametitle{Description}
-
-\begin{itemize}
-	\item make a  sensor network which can measure the temperature periodically
-	\item Sensor mote transmit results to sink
-	\item Sensor shows the results by either:
-	\begin{itemize}
-		\item a blue ($\leq 15^{\circ} C $) led
-		\item or a red $>15^{\circ} C$ led 
-	\end{itemize}
-	\item Sink sends ACK to sensor mote if receives package
-	\item Sensor mote goes to sleep if receives ACK or try to retransmit $N$ times.
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Extensions of project}
-\begin{description}
-\item[Multiple motes] If there are multiple sensing motes, they send their sensing data to the sink.
-\item[Plotting] Plot temperature vs. time (offline /online)
-\item[Temperature average] The sink averages the temperature from the sensors.
-\item[Temperature average sensor] The sensor motes averages $n$ temperatures before sending to the sink to improve energy efficiency of the application.
-\item[Temperature average improved] Motes averages temperature sends number of recorded temperatures which indicates what weight the sink should use to make a correct average.
-
-\end{description}
-\end{frame}
-
 \section{Project implementation}
+
+
 \begin{frame}
 \frametitle{Project overview}
 \begin{figure}[htbp]
@@ -187,13 +126,3 @@ if (call PacketLink.wasDelivered(msg)){
 \end{lstlisting}
 
 \end{frame}
-
-
-\section{Project results}
-
-\begin{frame}
-\frametitle{Project results}
- 
-\end{frame}
-
-\end{document}

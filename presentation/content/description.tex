@@ -1,0 +1,30 @@
+\section{Project Description}
+
+
+\begin{frame}
+\frametitle{Description}
+
+\begin{itemize}
+	\item make a  sensor network which can measure the temperature periodically
+	\item Sensor mote transmit results to sink
+	\item Sensor shows the results by either:
+	\begin{itemize}
+		\item a blue ($\leq 15^{\circ} C $) led
+		\item or a red $>15^{\circ} C$ led 
+	\end{itemize}
+	\item Sink sends ACK to sensor mote if receives package
+	\item Sensor mote goes to sleep if receives ACK or try to retransmit $N$ times.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Extensions of project}
+\begin{description}
+\item[Multiple motes] If there are multiple sensing motes, they send their sensing data to the sink.
+\item[Plotting] Plot temperature vs. time (offline /online)
+\item[Temperature average] The sink averages the temperature from the sensors.
+\item[Temperature average sensor] The sensor motes averages $n$ temperatures before sending to the sink to improve energy efficiency of the application.
+\item[Temperature average improved] Motes averages temperature sends number of recorded temperatures which indicates what weight the sink should use to make a correct average.
+
+\end{description}
+\end{frame}
