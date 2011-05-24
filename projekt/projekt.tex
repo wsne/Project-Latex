@@ -1,0 +1,103 @@
+\documentclass[a4paper,11pt,titlepage]{article}
+
+\usepackage[breaklinks=true]{hyperref}
+
+\usepackage{pdflscape}
+
+% encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%Collaboration management
+\usepackage[draft,english]{fixme}
+%read-me: http://mirrors.dotsrc.org/ctan/macros/latex/contrib/fixme/fixme.pdf
+
+% layout
+\bibliographystyle{ieeetr}
+
+\usepackage[margin=3cm]{geometry}
+\usepackage{textcomp}
+
+% appearance
+\usepackage{graphicx} 
+\usepackage{color}
+
+% math extensions
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+
+\lstset{%
+  frame=trBL,
+  frameround=fttt,
+  basicstyle=\footnotesize\tt,
+  keywordstyle=\bf,
+  language = C,
+  tabsize=2
+}
+\newcommand{\for}{\text{ for }}
+\newcommand{\then}{\rightarrow}
+\newcommand{\id}[1]{\ensuremath{\mathop{\mathit{#1}}\nolimits}}
+
+% header and footer
+\usepackage{fancyhdr}
+
+\definecolor{qstgray}{gray}{0.9}
+\makeatletter
+\newenvironment{qst}{
+  \begin{lrbox}{\@tempboxa}
+    \begin{minipage}{\columnwidth}
+      \footnotesize \slshape
+    }
+    {
+    \end{minipage}
+  \end{lrbox}
+  \colorbox{qstgray}{\usebox{\@tempboxa}}
+}
+\makeatother
+
+\fancypagestyle{fncy}{
+  \lhead{\thecourse}
+  \chead{\today}
+  \rhead{Handin 2}
+  \lfoot{}
+  \cfoot{}
+  \rfoot{\thepage}
+  \renewcommand{\headrulewidth}{0.5pt}
+  \renewcommand{\footrulewidth}{0.5pt}
+}
+
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+%\pagestyle{fncy} can't be used with progress 
+
+% title
+\title{\thecourse \\ \thetitle} 
+\date{\today} 
+\author{%
+  \begin{tabular}{ll}
+    Frederik Mogensen & 20080923\\
+    Allan Stisen & 20083311\\
+    Lasse Højgaard & 20080848
+  \end{tabular}
+}
+
+
+
+\newcommand{\thecourse}{Wireless Sensor Networks}
+\newcommand{\thetitle}{Mini-project 3 - Temperature sensing} 
+\newcommand{\subsubsubsection}[1]{\underline{#1}\newline}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+\input{content/index.tex}
+\newpage
+\bibliography{references}
+\end{document}
