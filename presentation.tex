@@ -1,6 +1,17 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{beamerthemeshadow}
+\usepackage{listings}
+
+
+\lstset{%
+  frame=trBL,
+  frameround=fttt,
+  basicstyle=\footnotesize\tt,
+  keywordstyle=\bf,
+  language = C,
+  tabsize=2
+}
 
 \usetheme{Berlin}
 \title[Temperature Sensing]{Miniproject 3 \\ Temperature Sensing}
@@ -101,6 +112,45 @@ where the coefficients is the following
 
 \begin{frame}
 \frametitle{Package transfer and receive}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Package ACK with PacketAcknowledgements interface}
+\begin{lstlisting}[caption={TemperatureAppC.nc}]
+ TemperatureC.PacketAcknowledgements -> ActiveMessageC;
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ sendReadings()}]
+memcpy(call AMSend.getPayload(&sendBuf, sizeof(local)),
+    &local, sizeof local);
+call PacketAcknowledgements.requestAck(&sendBuf);
+if (call AMSend.send(SINK_NR, &sendBuf, sizeof local)
+    == SUCCESS) {
+    sendBusy = TRUE;
+    ackTries++;
+}
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Package ACK with PacketAcknowledgements interface}
+
+\begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ AMSend.sendDone()}]
+if(call PacketAcknowledgements.wasAcked(msg)) {
+    reportSent();
+    ackTries = 0;
+} else {
+    if (ackTries < NACKTRIES) {
+        sendReadings();
+    } else if (ackTries == NACKTRIES) {
+        ackTries = 0;
+        sleep();
+    }
+}
+\end{lstlisting}
 
 \end{frame}
 
