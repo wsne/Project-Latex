@@ -174,7 +174,7 @@ if (call AMSend.send(SINK_NR, &sendBuf, sizeof local)
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Package ACK with PacketAcknowledgements interface}
+\frametitle{Package ACK with PacketLink interface}
 
 \begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ AMSend.sendDone()}]
 if (call PacketLink.wasDelivered(msg)){
