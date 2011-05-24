@@ -154,6 +154,40 @@ if(call PacketAcknowledgements.wasAcked(msg)) {
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Package ACK with PacketLink interface}
+\begin{lstlisting}[caption={TemperatureAppC.nc}]
+TemperatureC.PacketLink -> CC2420ActiveMessageC;
+\end{lstlisting}
+
+\begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ sendReadings()}]
+memcpy(call AMSend.getPayload(&sendBuf, sizeof(local)),
+    &local, sizeof local);
+call PacketLink.setRetries(&sendBuf, 10);
+call PacketLink.setRetryDelay(&sendBuf, 500);
+if (call AMSend.send(SINK_NR, &sendBuf, sizeof local)
+    == SUCCESS) {
+    sendBusy = TRUE;
+}
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Package ACK with PacketAcknowledgements interface}
+
+\begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ AMSend.sendDone()}]
+if (call PacketLink.wasDelivered(msg)){
+    reportSent();
+    sleep();
+} else {
+    reportProblem();
+    sleep();
+}
+\end{lstlisting}
+
+\end{frame}
+
 
 \section{Project results}
 
