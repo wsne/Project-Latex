@@ -1,0 +1,26 @@
+
+\begin{frame}
+\frametitle{Testing Acknowledgements}
+How do we test ACKs?
+
+\begin{itemize}
+\item TinyOS detect duplicate packets and discards them. 
+\item However we wanted to test rapidly sending the same packet.
+\item Solution: Patch TinyOS.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Testing Acknowledgements}
+\begin{itemize}
+\item Add DummyReceiveP.nc, UniqueReceive.h, UniqueReceive.nc and
+UniqueReceiveP.nc to \texttt{tos/chips/cc2420/unique}
+\item Add compile flag to preprocessor: \texttt{CFLAGS+=-DRECEIVE\_HISTORY\_SIZE=0}
+\end{itemize}
+\end{frame}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../presentation"
+%%% End: 
