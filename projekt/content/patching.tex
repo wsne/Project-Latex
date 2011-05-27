@@ -1,3 +1,32 @@
-\section{Patching}
-skriv om patching af tinyos
-	skriv om opbygning computer (UART) <->base station <-> temperature
+\section{Patching the tinyos-core}
+
+\subsubsection{Problem: Testing acknowledgement}
+One of the bigger problems that we ran into when doing the project was: ``How
+do we test ACKs?''
+
+TinyOS detect duplicate packets and discards them. This meant that we were not
+able to test if our mote resend the packages if they did not receive an
+acknowledgement. However we wanted to test rapidly sending the
+same packet. 
+
+\subsubsection{Solution: Patch TinyOS}
+
+To make sure that we could se the packages at the basestation, but that the
+temperature-mote would still retransmit the package we set the compile flag to
+the preprocessor: \texttt{CFLAGS += -DCC2420\_NO\_ACKNOWLEDGEMENTS}.
+
+Next step is to patch the following files: 
+DummyReceiveP.nc, UniqueReceive.h, UniqueReceive.nc and UniqueReceiveP.nc to 
+
+\texttt{tos/chips/cc2420/unique}
+
+Add compile flag to preprocessor: \texttt{CFLAGS+=-DRECEIVE\_HISTORY\_SIZE=0}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../presentation"
+%%% End: 
+
+\subsection{UART / PC Communication}
+Skriv om brug af printf
+	
