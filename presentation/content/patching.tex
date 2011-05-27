@@ -14,11 +14,21 @@ How do we test ACKs?
 \begin{frame}
 \frametitle{Testing Acknowledgements}
 \begin{itemize}
-\item Add DummyReceiveP.nc, UniqueReceive.h, UniqueReceive.nc and
-UniqueReceiveP.nc to \texttt{tos/chips/cc2420/unique}
+\item \url{http://www.mail-archive.com/tinyos-help@millennium.berkeley.edu/msg22427.html}
+\item \url{/opt/tinyos-2.1.1/tos/chips/cc2420/unique}
+\item New files: DummyReceiveP.nc, UniqueReceive.h
+\item UniqueReceive.nc and UniqueReceiveP.nc patched as shown on the next slide.
 \item Add compile flag to preprocessor: \texttt{CFLAGS+=-DRECEIVE\_HISTORY\_SIZE=0}
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Testing Acknowledgements}
+
+
+\lstinputlisting[language={c}, captionpos=b, title={UniqueReceive.nc}, label=src:patch]{src/UniqueReceiverC.nc}
+\end{frame}
+
 
 %%% Local Variables: 
 %%% mode: latex
