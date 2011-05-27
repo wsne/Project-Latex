@@ -40,5 +40,25 @@ patch adds enables the preprocessor to take a flag more. We set this compile
 flag: \texttt{CFLAGS+=-DRECEIVE\_HISTORY\_SIZE=0}
 
 \subsection{UART / PC Communication}
-Skriv om brug af printf
-	
+In order to receive the measurements from the motes we programmed one
+of the motes as the sink. We did this by flashing it with a modified
+version of the Basestation program from tinyOS.
+
+Our modifications to the Basestation includes adding support for using
+\texttt{prinft}, which came in handy when debugging our application.
+In order to use \texttt{printf} the preprocessor should be passed an
+additional flag: \texttt{CFLAGS += -I\$(TOSDIR)/lib/printf}.  Now you
+simply include \texttt{printf.h} and you're good to go. After calling
+\texttt{printf()} follow it up by a call to \texttt{printfflush()} to
+flush the buffer.
+
+
+
+\begin{lstlisting}[caption={BaseStationP.cp casting the payload}]
+temperature_t* tmpptr = (temperature_t*)payload;
+\end{lstlisting}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../projekt"
+%%% End: 
