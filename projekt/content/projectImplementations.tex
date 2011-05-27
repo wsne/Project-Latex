@@ -75,17 +75,17 @@ event void Read.readDone(error_t result, uint16_t data) {
 		data = 0xffff;
 		report_problem();
 	}
-	  // conversion
-	  tempC = ( (-CONVERSION_D1) + (CONVERSION_D2 * data) ) ;
-    local.readings[reading++] = tempC;
+	// conversion
+	tempC = ( (-CONVERSION_D1) + (CONVERSION_D2 * data) ) ;
+	reading++;
+	average = average + (tempC / NREADINGS);
+	if (reading == NREADINGS) {
+		local.averages[averages++] = average;
+		average = 0;
+		reading = 0;
+	}
 }
 \end{lstlisting}
-
-
-\subsection{Network communication}
-
-\subsection{UART / PC Communication}
-Skriv om brug af printf
 
 \subsection{Acknowledgement}
 In this project one of our goals are to make sure that the motes retransmit the
@@ -151,7 +151,7 @@ acknowledgement with the $tos.interfaces.PacketLink$ interface \cite{telosbAPI}.
 TemperatureC.PacketLink -> CC2420ActiveMessageC;
 \end{lstlisting}
 
-This part of the implementation looks a lot like the implementation with
+This part of the implementation looks a lot like the implementation with \\
 $tos.interfaces.PacketAcknowledgements$.
 
 \begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ sendReadings()}]
@@ -164,7 +164,7 @@ if (call AMSend.send(SINK_NR, &sendBuf, sizeof local) == SUCCESS) {
 }
 \end{lstlisting}
 
-One of the places where the usage of $PacketLink$ differs from the usage of
+One of the places where the usage of $PacketLink$ differs from the usage of \\
 $PacketAcknowledgements$ is in the $sendDone()$ function. The application does
 not have to manually resend the package, but only have to handle the case where
 even the retransmits does not get an acknowledgement.
