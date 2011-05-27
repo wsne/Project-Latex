@@ -63,10 +63,12 @@ We've made two compile time constants, $CONVERSION_{D1}$, and
 $CONVERSION_{D2}$. Both constants are scaled by 100. This allows us to only use
 unsigned integers, and recive a more fine-grained temperature measurement.
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Temperature.h}]
 CONVERSION_D1 = 3960, /* VDD = 3V */
 CONVERSION_D2 = 1 /* 14 bits */
-...
+\end{lstlisting}
+
+\begin{lstlisting}[caption={TemperatureC.nc}]
 event void Read.readDone(error_t result, uint16_t data) {
 	float tempC;
 	if (result != SUCCESS){
