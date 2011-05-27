@@ -21,7 +21,7 @@ formula\cite{temperature}:
 \begin{align*}
 	T &= d_{1} + d_{2} \cdot SO_{T}
 \end{align*}
-where the coefficients is defined in Tabel ~\ref{table:temperature}
+where the coefficients is defined in Table~\ref{table:temperature}.
 \begin{table}[ht]
 \centering
 \begin{tabular}{ | l | c | r | }
@@ -53,7 +53,8 @@ where the coefficients is defined in Tabel ~\ref{table:temperature}
 \end{table}
 The conversion from a digital readout is being done in the event readDone.
 We've made two compile time constants, $CONVERSION_{D1}$, and
-$CONVERSION_{D2}$.
+$CONVERSION_{D2}$. Both constants are scaled by 100. This allows us to only use
+unsigned integers, and recive a more fine grained temperature measurement.
 
 \begin{lstlisting}
 CONVERSION_D1 = 3960, /* VDD = 3V */
