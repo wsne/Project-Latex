@@ -1,31 +1,43 @@
 \section{Patching the tinyos-core}
 
-\subsubsection{Problem: Testing acknowledgement}
+\subsubsection{Testing acknowledgement}
 One of the bigger problems that we ran into when doing the project was: ``How
 do we test ACKs?''
 
-TinyOS detect duplicate packets and discards them. This meant that we were not
+TinyOS detect duplicate packets and discards them.
+
+\begin{quote}
+To detect duplicate packets, a sequence number byte can be used within the
+packet to verify against previously received packets. If the source address and
+sequence number of a newly received packet matches that of a previously
+received packet, then the newly received packet is a duplicate and may be
+dumped.\cite[chapter 2.2]{PaketLink}
+\end{quote}
+
+
+This meant that we were not
 able to test if our mote resend the packages if they did not receive an
 acknowledgement. However we wanted to test rapidly sending the
 same packet. 
 
-\subsubsection{Solution: Patch TinyOS}
+\subsubsection{Patch TinyOS}
 
 To make sure that we could se the packages at the basestation, but that the
 temperature-mote would still retransmit the package we set the compile flag to
 the preprocessor: \texttt{CFLAGS += -DCC2420\_NO\_ACKNOWLEDGEMENTS}.
 
 Next step is to patch the following files: 
-DummyReceiveP.nc, UniqueReceive.h, UniqueReceive.nc and UniqueReceiveP.nc to 
 
-\texttt{tos/chips/cc2420/unique}
+\begin{itemize}
+	\item /opt/tinyos-2.x/tos/chips/cc2420/unique/DummyReceiveP.nc
+	\item /opt/tinyos-2.x/tos/chips/cc2420/unique/UniqueReceive.h
+	\item /opt/tinyos-2.x/tos/chips/cc2420/unique/UniqueReceive.nc
+	\item /opt/tinyos-2.x/tos/chips/cc2420/unique/UniqueReceiveP.nc
+\end{itemize}
 
-Add compile flag to preprocessor: \texttt{CFLAGS+=-DRECEIVE\_HISTORY\_SIZE=0}
-
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: "../presentation"
-%%% End: 
+Se the content of this patch on page~\siteref{diff:receive} and onward. This
+patch adds enables the preprocessor to take a flag more. We set this compile
+flag: \texttt{CFLAGS+=-DRECEIVE\_HISTORY\_SIZE=0}
 
 \subsection{UART / PC Communication}
 Skriv om brug af printf
