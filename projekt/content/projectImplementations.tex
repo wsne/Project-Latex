@@ -86,15 +86,15 @@ event void Read.readDone(error_t result, uint16_t data) {
 Skriv om brug af printf
 
 \subsection{Acknowledgement}
-Skriv om hardware/software ACK
+In this project one of our goals are to make sure that the motes retransmit the
+packages if they do not recive an $ACK$ at the first transmission.
 
 \subsubsection{Package ACK with PacketAcknowledgements interface}
 
-In this project one of our goals are to make sure that the motes retransmit the
-packages if they do not recive an $ACK$ at the first transmission. Our first
-implementation of this involved using the
-$tos.interfaces.PacketAcknowledgements$ interface \cite{telosbAPI}. This interface allows the
-user to request an acknowledgement on a package before sending it.
+Our first implementation of this involved using the
+$tos.interfaces.PacketAcknowledgements$ interface \cite{telosbAPI}. This
+interface allows the user to request an acknowledgement on a package before
+sending it.
 
 The wireing off the ActiveMessageC PacketAcknowledgements interface onto the
 TemperatureC PacketAcknowledgements.
