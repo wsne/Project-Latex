@@ -6,6 +6,6 @@ Here we described some extensions of the project that we've though of. Some are 
 \item[Temperature average] The sink averages the temperature from the sensors.
 \item[Temperature average sensor] The sensor motes averages $n$ temperatures before sending to the sink to improve energy efficiency of the application.
 \item[Temperature average improved] Motes averages temperature sends number of recorded temperatures which indicates what weight the sink should use to make a correct average.
-\item[Temperature motes] overvej om temp motes skal kunne modtage
+\item[Temperature motes] overvej om temp motes skal kunne modtage \fixme{overvej om temp motes skal kunne modtage}
 \item[Dynamic transmission power] One interesting strategy for retransmitting packages could for example adjusting the transmission power according to the number of retransmitments. For example increasing the transmit power in the number of retries. One problem with this extension is that we can't see how many retries there is with a current message because the tinyos is handling this for us. But another problem with this strategy is that the sink may at some point have problems with congestion. And then all the sensor would increase their transmit power and thereby increasing the noise in the network. You could also implement some congestion control to prevent this or take the congestion into consideration when increasing the transmit power.
 \end{description}
