@@ -52,11 +52,15 @@ simply include \texttt{printf.h} and you're good to go. After calling
 \texttt{printf()} follow it up by a call to \texttt{printfflush()} to
 flush the buffer.
 
-
+In the Basestation we cast the payload to be of the $temperature\_t$ type, if
+the size matches the expected size.
 
 \begin{lstlisting}[caption={BaseStationP.cp casting the payload}]
 temperature_t* tmpptr = (temperature_t*)payload;
 \end{lstlisting}
+
+The \texttt{printf()} allows us to se the resend packages when using the \\
+\texttt{CFLAGS += -DCC2420\_NO\_ACKNOWLEDGEMENTS} flag.
 
 %%% Local Variables: 
 %%% mode: latex
