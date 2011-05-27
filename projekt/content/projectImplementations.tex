@@ -134,11 +134,15 @@ secound timer to time the retry delay.
 
 \subsubsection{Package ACK with PacketLink interface}
 
-
+After more digging in the API we desided to try implementing the package
+acknowledgement with the $tos.interfaces.PacketLink$ interface \cite{telosbAPI}.
 
 \begin{lstlisting}[caption={TemperatureAppC.nc}]
 TemperatureC.PacketLink -> CC2420ActiveMessageC;
 \end{lstlisting}
+
+This part of the implementation looks a lot like the implementation with
+$tos.interfaces.PacketAcknowledgements$.
 
 \begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ sendReadings()}]
 memcpy(call AMSend.getPayload(&sendBuf, sizeof(local)),
@@ -150,6 +154,10 @@ if (call AMSend.send(SINK_NR, &sendBuf, sizeof local) == SUCCESS) {
 }
 \end{lstlisting}
 
+One of the places where the usage of $PacketLink$ differs from the usage of
+$PacketAcknowledgements$ is in the $sendDone()$ function. The application does
+not have to manually resend the package, but only have to handle the case where
+even the retransmits does not get an acknowledgement.
 
 \begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ AMSend.sendDone()}]
 if (call PacketLink.wasDelivered(msg)){
