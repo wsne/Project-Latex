@@ -6,7 +6,6 @@ digraph "TemperatureAppC" {
   "TemperatureC" [fontsize=12, shape=box, URL="../chtml/TemperatureC.html"];
   "TemperatureAppC.AMSenderC" [fontsize=12, shape=box,peripheries=2, style=dashed, label="AMSenderC", URL="../chtml/tos.system.AMSenderC.html"];
   "TemperatureC" [fontsize=12, shape=box, URL="../chtml/TemperatureC.html"];
-  "TemperatureAppC.AMReceiverC" [fontsize=12, shape=box,peripheries=2, style=dashed, label="AMReceiverC", URL="../chtml/tos.system.AMReceiverC.html"];
   "TemperatureC" [fontsize=12, shape=box, URL="../chtml/TemperatureC.html"];
   "TemperatureAppC.TimerMilliC" [fontsize=12, shape=box,peripheries=2, style=dashed, label="TimerMilliC", URL="../chtml/tos.system.TimerMilliC.html"];
   "TemperatureC" [fontsize=12, shape=box, URL="../chtml/TemperatureC.html"];
@@ -18,7 +17,6 @@ digraph "TemperatureAppC" {
   "TemperatureC" -> "MainC" [label="Boot", URL="../ihtml/tos.interfaces.Boot.html", fontsize=10];
   "TemperatureC" -> "ActiveMessageC" [label="SplitControl", URL="../ihtml/tos.interfaces.SplitControl.html", fontsize=10];
   "TemperatureC" -> "TemperatureAppC.AMSenderC" [label="AMSend", URL="../ihtml/tos.interfaces.AMSend.html", fontsize=10];
-  "TemperatureC" -> "TemperatureAppC.AMReceiverC" [label="Receive", URL="../ihtml/tos.interfaces.Receive.html", fontsize=10];
   "TemperatureC" -> "TemperatureAppC.TimerMilliC" [label="Timer<TMilli>", URL="../ihtml/tos.lib.timer.Timer.html", fontsize=10];
   "TemperatureC" -> "TemperatureAppC.Sensor" [label="Read<uint16_t>", URL="../ihtml/tos.interfaces.Read.html", fontsize=10];
   "TemperatureC" -> "LedsC" [label="Leds", URL="../ihtml/tos.interfaces.Leds.html", fontsize=10];
