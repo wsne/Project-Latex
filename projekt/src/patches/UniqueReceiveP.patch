@@ -1,0 +1,22 @@
+*** unique-orig/UniqueReceiveP.nc	2008-06-24 07:32:31.000000000 +0200
+--- /opt/tinyos-2.1.1/tos/chips/cc2420/unique/UniqueReceiveP.nc	2011-05-24 10:53:44.410461001 +0200
+***************
+*** 37,44 ****
+   */
+   
+  #include "CC2420.h"
+  
+! module UniqueReceiveP @safe() {
+    provides {
+      interface Receive;
+      interface Receive as DuplicateReceive;
+--- 37,45 ----
+   */
+   
+  #include "CC2420.h"
++ #include "UniqueReceive.h"
+  
+! module UniqueReceiveP {
+    provides {
+      interface Receive;
+      interface Receive as DuplicateReceive;

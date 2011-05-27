@@ -1,0 +1,40 @@
+*** unique-orig/UniqueReceiveC.nc	2007-07-04 02:37:16.000000000 +0200
+--- /opt/tinyos-2.1.1/tos/chips/cc2420/unique/UniqueReceiveC.nc	2011-05-23 17:52:45.117440504 +0200
+***************
+*** 37,42 ****
+--- 37,44 ----
+   * @author David Moss
+   */
+   
++ #include "UniqueReceive.h"
++ 
+  configuration UniqueReceiveC {
+    provides {
+      interface Receive;
+***************
+*** 49,54 ****
+--- 51,58 ----
+  }
+  
+  implementation {
++ 
++ #if (RECEIVE_HISTORY_SIZE > 0)
+    components UniqueReceiveP,
+        CC2420PacketC,
+        MainC;
+***************
+*** 61,65 ****
+--- 65,77 ----
+    
+    UniqueReceiveP.CC2420PacketBody -> CC2420PacketC;
+    
++ #else 
++   components DummyReceiveP;
++   DuplicateReceive = DummyReceiveP;
++   
++   Receive = SubReceive;
++   
++ #endif
++ 
+  }
+  
