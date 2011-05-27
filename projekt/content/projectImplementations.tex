@@ -75,7 +75,90 @@ event void Read.readDone(error_t result, uint16_t data) {
 \subsection{Network communication}
 
 \subsection{UART / PC Communication}
-skriv om brug af printf
+Skriv om brug af printf
 
 \subsection{Acknowledgement}
-skriv om hardware/software ACK
+Skriv om hardware/software ACK
+
+\subsubsection{Package ACK with PacketAcknowledgements interface}
+
+In this project one of our goals are to make sure that the motes retransmit the
+packages if they do not recive an $ACK$ at the first transmission. Our first
+implementation of this involved using the
+$tos.interfaces.PacketAcknowledgements$ interface \cite{telosbAPI}. This interface allows the
+user to request an acknowledgement on a package before sending it.
+
+The wireing off the ActiveMessageC PacketAcknowledgements interface onto the
+TemperatureC PacketAcknowledgements.
+
+\begin{lstlisting}[caption={TemperatureAppC.nc}]
+ TemperatureC.PacketAcknowledgements -> ActiveMessageC;
+\end{lstlisting}
+
+We have defined a function in the $TemperatureC.nc$ file that are responsible
+for sending the messages. This function requests an acknowledgement on the
+message, sends the message and increments the counter responsible for keeping
+track on the numbers of times we have tried to transmit a packaged.
+
+\begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ sendReadings()}]
+memcpy(call AMSend.getPayload(&sendBuf, sizeof(local)),
+    &local, sizeof local);
+call PacketAcknowledgements.requestAck(&sendBuf);
+if (call AMSend.send(SINK_NR, &sendBuf, sizeof local) == SUCCESS) {
+    sendBusy = TRUE;
+    ackTries++;
+}
+\end{lstlisting}
+
+In the same file we have an event that are trickered when the $send$ is done.
+In this function we ask the $PacketAcknowledgements$ interface if the packaged
+recived an acknowledgement. If it did, we reset our counter, else we check if
+our counter has reached the max number of tries and retransmits the packaged.
+
+\begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ AMSend.sendDone()}]
+if(call PacketAcknowledgements.wasAcked(msg)) {
+    reportSent();
+    ackTries = 0;
+} else {
+    if (ackTries < NACKTRIES) {
+        sendReadings();
+    } else if (ackTries == NACKTRIES) {
+        ackTries = 0;
+        sleep();
+    }
+}
+\end{lstlisting}
+
+This approach has the disadvantage that the application has to maintain a
+secound timer to time the retry delay.
+
+\subsubsection{Package ACK with PacketLink interface}
+
+
+
+\begin{lstlisting}[caption={TemperatureAppC.nc}]
+TemperatureC.PacketLink -> CC2420ActiveMessageC;
+\end{lstlisting}
+
+\begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ sendReadings()}]
+memcpy(call AMSend.getPayload(&sendBuf, sizeof(local)),
+    &local, sizeof local);
+call PacketLink.setRetries(&sendBuf, NACKTRIES);
+call PacketLink.setRetryDelay(&sendBuf, RETRYDELAY);
+if (call AMSend.send(SINK_NR, &sendBuf, sizeof local) == SUCCESS) {
+    sendBusy = TRUE;
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={TemperatureC.nc $\rightarrow$ AMSend.sendDone()}]
+if (call PacketLink.wasDelivered(msg)){
+    reportSent();
+    sleep();
+} else {
+    reportProblem();
+    sleep();
+}
+\end{lstlisting}
+
+
